@@ -37,7 +37,7 @@
     background-repeat:no-repeat;
   }
   .mono{font-family:'JetBrains Mono',monospace;}
-  h1,h2,h3{font-family:'Fraunces',serif; margin:0;}
+  h1,h2,h3{font-family:'Helvetica Neue', 'Inter', Helvetica, Arial, sans-serif; margin:0; letter-spacing:-0.015em;}
   a{color:inherit;}
 
   /* HERO */
@@ -60,7 +60,6 @@
     font-size:clamp(28px,7vw,42px);
     font-weight:700;
     line-height:1.05;
-    font-style:italic;
   }
   .hero-sub{
     margin-top:8px;
@@ -136,7 +135,7 @@
     display:flex; align-items:baseline; justify-content:space-between;
     margin-bottom:14px;
   }
-  .section-head h2{font-size:20px; font-weight:600; font-style:italic;}
+  .section-head h2{font-size:20px; font-weight:600;}
   .section-note{font-size:11px; color:var(--sea); font-family:'JetBrains Mono',monospace;}
 
   .grid{display:grid; gap:12px;}
@@ -197,7 +196,7 @@
   /* FLIGHTS / CAR */
   .flight-row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
   .flight-route{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;}
-  .flight-time{font-size:22px; font-weight:700; font-family:'Fraunces',serif;}
+  .flight-time{font-size:22px; font-weight:700; font-family:'Helvetica Neue', 'Inter', Helvetica, Arial, sans-serif;}
   .flight-meta{font-size:11px; opacity:.6; margin-top:4px;}
   .badge{
     font-size:10px; font-family:'JetBrains Mono',monospace;
@@ -205,6 +204,31 @@
   }
 
   /* DESTINATIONS */
+  .dest-search-box{display:flex; gap:8px; margin-bottom:10px;}
+  .dest-search-box input{
+    flex:1; padding:10px 14px; border-radius:10px; border:1px solid var(--line);
+    font-family:'Inter',sans-serif; font-size:13px; background:#fff;
+  }
+  .dest-search-box button{
+    background:var(--ink); color:var(--cream); border:none; border-radius:10px;
+    padding:10px 16px; font-size:12.5px; cursor:pointer; font-weight:600; white-space:nowrap;
+  }
+  .dest-add-form{
+    display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;
+    background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px;
+  }
+  .dest-add-form input[type="text"]{
+    flex:1; min-width:140px; padding:9px 12px; border-radius:8px; border:1px solid var(--line);
+    font-family:'Inter',sans-serif; font-size:13px;
+  }
+  .dest-add-form select{
+    padding:9px 10px; border-radius:8px; border:1px solid var(--line);
+    font-family:'Inter',sans-serif; font-size:13px; background:#fff;
+  }
+  .dest-add-form button{
+    background:var(--terracotta); color:#fff; border:none; border-radius:8px;
+    padding:9px 16px; font-size:13px; cursor:pointer; font-weight:600;
+  }
   .dest-tabs{display:flex; gap:8px; margin-bottom:14px; overflow-x:auto; padding-bottom:4px;}
   .dtab{
     flex:0 0 auto;
@@ -219,7 +243,18 @@
     white-space:nowrap;
   }
   .dtab.active{background:var(--terracotta); color:#fff; border-color:var(--terracotta);}
-  .dest-card{overflow:hidden; display:flex; gap:12px; align-items:flex-start;}
+  .dest-card{overflow:hidden; display:flex; gap:12px; align-items:flex-start; cursor:grab;}
+  .dest-card:active{cursor:grabbing;}
+  .dest-card.dragging{opacity:.4;}
+  .dest-card .dest-thumb-placeholder{
+    width:64px; height:64px; border-radius:10px; flex:0 0 64px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--sun); color:#fff; font-family:'Helvetica Neue', 'Inter', Helvetica, Arial, sans-serif; font-size:22px; font-weight:700;
+  }
+  .dest-hint{
+    font-size:9.5px; font-family:'JetBrains Mono',monospace; opacity:.45; margin-top:6px;
+  }
+  .day-tab.drag-over{ outline:2px dashed var(--terracotta); outline-offset:2px; }
   .dest-card .dest-thumb{
     width:64px; height:64px; border-radius:10px; object-fit:cover; flex:0 0 64px;
     border:1px solid var(--line);
@@ -254,7 +289,7 @@
     text-align:center;
     min-width:64px;
   }
-  .day-tab .dn{display:block; font-size:15px; font-weight:700; font-family:'Fraunces',serif; font-style:italic;}
+  .day-tab .dn{display:block; font-size:15px; font-weight:700; font-family:'Helvetica Neue', 'Inter', Helvetica, Arial, sans-serif;}
   .day-tab.active{background:var(--terracotta); border-color:var(--terracotta); color:#fff;}
   .day-panel{display:none;}
   .day-panel.active{display:block;}
@@ -303,6 +338,38 @@
     border:1px solid var(--line);
   }
   .day-map iframe{display:block; width:100%; height:220px; border:0;}
+
+  /* VALIGIE */
+  .pack-card h3{font-size:16px; display:flex; align-items:center; gap:8px;}
+  .pack-count{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--sea);
+    background:rgba(46,139,150,0.1); padding:2px 8px; border-radius:999px;
+  }
+  .pack-list{list-style:none; margin:12px 0 0; padding:0;}
+  .pack-list li{
+    display:flex; align-items:center; gap:10px;
+    padding:8px 0; border-bottom:1px dashed var(--line);
+    font-size:14px;
+  }
+  .pack-list li:last-child{border-bottom:none;}
+  .pack-list input[type="checkbox"]{
+    width:18px; height:18px; flex:0 0 18px; accent-color:var(--terracotta); cursor:pointer;
+  }
+  .pack-list li span{flex:1;}
+  .pack-list li.checked span{ text-decoration:line-through; opacity:.45; }
+  .pack-list li button.del{
+    background:none; border:none; color:var(--terracotta);
+    font-size:15px; cursor:pointer; line-height:1; padding:2px 6px; opacity:.6;
+  }
+  .pack-add-row{display:flex; gap:8px; margin-top:12px;}
+  .pack-add-row input{
+    flex:1; padding:9px 12px; border-radius:8px; border:1px solid var(--line);
+    font-family:'Inter',sans-serif; font-size:13px;
+  }
+  .pack-add-row button{
+    background:var(--sea); color:#fff; border:none; border-radius:8px;
+    padding:9px 16px; font-size:13px; cursor:pointer; font-weight:600;
+  }
 
   footer{
     text-align:center; font-size:11px; opacity:.5; margin-top:50px;
@@ -388,6 +455,20 @@
       <h2>Destinazioni</h2>
       <span class="section-note">info + foto</span>
     </div>
+    <div class="dest-search-box" id="dest-search-box">
+      <input type="text" id="dest-search-input" placeholder="Cerca tra le destinazioni…">
+      <button id="dest-toggle-add">+ Aggiungi nuova</button>
+    </div>
+    <div class="dest-add-form" id="dest-add-form" style="display:none;">
+      <input type="text" id="dest-add-name" placeholder="Nome del posto*">
+      <select id="dest-add-cat">
+        <option value="spiagge">🏖️ Spiaggia</option>
+        <option value="borghi">🏘️ Borgo</option>
+        <option value="cultura">🏛️ Cultura</option>
+      </select>
+      <input type="text" id="dest-add-note" placeholder="Breve nota (facoltativa)">
+      <button id="dest-add-confirm">Aggiungi alla lista</button>
+    </div>
     <div class="dest-tabs" id="dest-tabs"></div>
     <div class="grid grid-2" id="destinations"></div>
   </section>
@@ -402,6 +483,15 @@
     <div id="day-panels"></div>
   </section>
 
+  <!-- VALIGIE -->
+  <section>
+    <div class="section-head">
+      <h2>Valigie</h2>
+      <span class="section-note">check ✓ = fatto, resta in lista</span>
+    </div>
+    <div class="grid grid-2" id="packing-lists"></div>
+  </section>
+
   <footer>Dashboard generata per il viaggio in Creta · dati voli e meteo verificati alla data indicata</footer>
 </div>
 
@@ -413,14 +503,16 @@ const TRIP = {
     date:"Sab 15 ago 2026", dep:"12:00", arr:"15:50", duration:"2h50",
     airline:"Neos Air", num:"NO6732", type:"Diretto · Economy",
     pax:["Tania Anna Cremonesi — e-ticket 7037441676492","Roberto Bernardini — e-ticket 7037441676493"],
-    booking:"ID9B7E"
+    booking:"ID9B7E",
+    airlineUrl:"https://www.neosair.it"
   },
   returnFlight: {
     route:"HER → BGY", from:"Heraklio (HER)", to:"Milano Bergamo",
     date:"Ven 21 ago 2026", dep:"17:00", arr:"18:45", duration:"2h45",
     airline:"Ryanair", num:"FR4401", type:"Diretto · Economy",
     pax:["Tania Anna Cremonesi — posto 16A","Roberto Bernardini — posto 16B"],
-    booking:"W2TIMZ"
+    booking:"W2TIMZ",
+    airlineUrl:"https://www.ryanair.com/gb/en/plan-trip/manage-booking"
   },
   car:{
     company:"Aegean Rentals", model:"Toyota Aygo o simile",
@@ -531,29 +623,81 @@ const DEFAULT_ITINERARY = [
   ]}
 ];
 
-// Info destinazioni — testo di sintesi, categoria e miniatura (foto libere da Wikimedia Commons, CC)
-const DESTINATIONS = [
-  {name:"Elafonissi", tag:"Spiaggia rosa · Natura 2000", cat:"spiagge",
+// Liste bagagli di default — modificabili, con checkbox che spuntano senza far sparire l'oggetto
+const DEFAULT_PACKING = {
+  MyR: [
+    "Carta d'identità valida",
+    "Patente di guida (per il noleggio auto)",
+    "Carta di credito/bancomat",
+    "Biglietti aerei / documenti di viaggio (anche solo su telefono)",
+    "Conferme alloggi stampate o salvate offline",
+    "Costume da bagno (2)",
+    "Asciugamano da mare a rapida asciugatura",
+    "Sandali/ciabatte da spiaggia",
+    "Scarpe comode da camminata (per i borghi e le soste)",
+    "Cappello o berretto",
+    "Occhiali da sole",
+    "Crema solare alta protezione",
+    "Repellente per insetti",
+    "Abbigliamento leggero (magliette, pantaloncini)",
+    "Un outfit più curato per cena fuori",
+    "Felpa leggera (sere in barca/mare possono rinfrescare)",
+    "Caricabatterie + cavo",
+    "Power bank",
+    "Adattatore di corrente (se necessario dal proprio paese)",
+    "Farmaci personali eventuali",
+    "Kit primo soccorso essenziale (cerotti, disinfettante)",
+    "Borraccia riutilizzabile",
+    "Zaino leggero da giornata"
+  ],
+  MyT: [
+    "Carta d'identità valida",
+    "Carta di credito/bancomat",
+    "Biglietti aerei / documenti di viaggio (anche solo su telefono)",
+    "Conferme alloggi stampate o salvate offline",
+    "Costumi da bagno (2)",
+    "Copricostume/pareo",
+    "Asciugamano da mare a rapida asciugatura",
+    "Sandali/infradito da spiaggia",
+    "Scarpe comode da camminata",
+    "Cappello a tesa larga",
+    "Occhiali da sole",
+    "Crema solare alta protezione + doposole",
+    "Repellente per insetti",
+    "Abbigliamento leggero (vestiti, top, shorts)",
+    "Un outfit più curato per cena fuori",
+    "Felpa o copertura leggera per la sera",
+    "Trousse trucco/skincare essenziale",
+    "Caricabatterie + cavo",
+    "Power bank",
+    "Farmaci personali eventuali",
+    "Borraccia riutilizzabile",
+    "Borsa/zaino leggero da giornata"
+  ]
+};
+// Info destinazioni — testo di sintesi, categoria, coordinate e miniatura (foto libere da Wikimedia Commons, CC)
+const DEFAULT_DESTINATIONS = [
+  {name:"Elafonissi", tag:"Spiaggia rosa · Natura 2000", cat:"spiagge", lat:35.2761, lon:23.5354,
    text:"Laguna con sabbia rosata e acque basse, protetta da un'area naturale: niente locali o resort sulla spiaggia. Un isolotto raggiungibile a piedi con la bassa marea.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Elafonisi_Beach,_Chania_Prefecture,_Greece_(3).jpg?width=200",
    photos:"https://www.google.com/search?q=elafonissi+beach+crete&tbm=isch"},
-  {name:"Monastero di Chrysoskalitissa", tag:"Sulla via per Elafonissi", cat:"cultura",
+  {name:"Monastero di Chrysoskalitissa", tag:"Sulla via per Elafonissi", cat:"cultura", lat:35.3050, lon:23.5386,
    text:"Piccolo monastero ortodosso arroccato su una scogliera a picco sul mare, l'unico vero punto di interesse lungo la strada verso Elafonissi.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Chrysoskalitissa_Monastery_Crete_Greece.jpg?width=200",
    photos:"https://www.google.com/search?q=chrysoskalitissa+monastery+crete&tbm=isch"},
-  {name:"Paleochora", tag:"Paese sul mare, Chania", cat:"borghi",
+  {name:"Paleochora", tag:"Paese sul mare, Chania", cat:"borghi", lat:35.2270, lon:23.6790,
    text:"Cittadina tranquilla sulla costa sud-ovest, punto di partenza dei traghetti per Gavdos. Ristorantini di pesce e atmosfera autentica, lontana dal turismo di massa.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Paleochora.jpg?width=200",
    photos:"https://www.google.com/search?q=paleochora+crete&tbm=isch"},
-  {name:"Chora Sfakion", tag:"Costa sud, Sfakia", cat:"borghi",
+  {name:"Chora Sfakion", tag:"Costa sud, Sfakia", cat:"borghi", lat:35.2014, lon:24.1351,
    text:"Villaggio di pescatori tra le Montagne Bianche e il Mar Libico, base per escursioni via mare verso Loutro, Agia Roumeli e Gavdos.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Village_Chora_Sfakion_on_Crete,_Greece.jpg?width=200",
    photos:"https://www.google.com/search?q=chora+sfakion+crete&tbm=isch"},
-  {name:"Loutro", tag:"Raggiungibile solo a piedi o in barca", cat:"borghi",
+  {name:"Loutro", tag:"Raggiungibile solo a piedi o in barca", cat:"borghi", lat:35.1966, lon:24.0827,
    text:"Minuscolo borgo bianco senza strade carrozzabili, affacciato su una baia riparata. Si raggiunge a piedi da Chora Sfakion o con un breve tragitto in barca.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Loutro_(Chania)-01.jpg?width=200",
    photos:"https://www.google.com/search?q=loutro+crete&tbm=isch"},
-  {name:"Frangokastello", tag:"Fortezza veneziana, 1371–74", cat:"cultura,spiagge",
+  {name:"Frangokastello", tag:"Fortezza veneziana, 1371–74", cat:"cultura,spiagge", lat:35.1821, lon:24.2341,
    text:"Castello veneziano sulla costa sud, legato alla leggenda dei \"Drosoulites\": ombre di soldati che apparirebbero all'alba in certe giornate di maggio. Ha anche una bella spiaggia sabbiosa ai piedi delle mura.",
    img:"https://commons.wikimedia.org/wiki/Special:FilePath/Frangokastello_R03.jpg?width=200",
    photos:"https://www.google.com/search?q=frangokastello+castle+crete&tbm=isch"}
@@ -563,7 +707,8 @@ const DEST_CATEGORIES = [
   {key:"tutte", label:"Tutte"},
   {key:"spiagge", label:"🏖️ Spiagge"},
   {key:"borghi", label:"🏘️ Borghi"},
-  {key:"cultura", label:"🏛️ Cultura"}
+  {key:"cultura", label:"🏛️ Cultura"},
+  {key:"personalizzate", label:"➕ Aggiunte da voi"}
 ];
 
 /* ---------------- HERO: countdown + route ---------------- */
@@ -625,6 +770,7 @@ function flightCard(f, label){
     <div class="kv"><span class="k">Tipo</span><span class="v">${f.type}</span></div>
     <div class="kv"><span class="k">Prenotazione</span><span class="v">${f.booking}</span></div>
     ${f.pax.map(p=>`<div class="kv"><span class="k">Passeggero</span><span class="v" style="font-size:11px;">${p}</span></div>`).join('')}
+    ${f.airlineUrl ? `<div class="dest-links" style="margin-top:10px;"><a href="${f.airlineUrl}" target="_blank" rel="noopener">Vai al sito ${f.airline} ↗</a></div>` : ''}
   </div>`;
 }
 document.getElementById('flights').innerHTML =
@@ -651,7 +797,9 @@ document.getElementById('logistics').innerHTML = `
 `;
 
 /* ---------------- DESTINAZIONI ---------------- */
+let destinations = DEFAULT_DESTINATIONS.map(d=>({...d}));
 let activeDestCat = 'tutte';
+let destSearchTerm = '';
 
 function renderDestTabs(){
   document.getElementById('dest-tabs').innerHTML = DEST_CATEGORIES.map(c=>
@@ -667,12 +815,27 @@ function renderDestTabs(){
 }
 
 function renderDestinations(){
-  const filtered = activeDestCat==='tutte'
-    ? DESTINATIONS
-    : DESTINATIONS.filter(d=> d.cat.split(',').includes(activeDestCat));
-  document.getElementById('destinations').innerHTML = filtered.map(d=>`
-    <div class="card dest-card">
-      <img class="dest-thumb" src="${d.img}" alt="${d.name}" loading="lazy">
+  let filtered = activeDestCat==='tutte'
+    ? destinations
+    : destinations.filter(d=> d.cat.split(',').includes(activeDestCat));
+  if(destSearchTerm.trim()){
+    const q = destSearchTerm.trim().toLowerCase();
+    filtered = filtered.filter(d=> d.name.toLowerCase().includes(q) || (d.text||'').toLowerCase().includes(q));
+  }
+  const container = document.getElementById('destinations');
+  if(filtered.length === 0){
+    container.innerHTML = `<div class="card" style="text-align:center; opacity:.6; font-size:13px; grid-column:1/-1;">Nessuna destinazione trovata. Usa "+ Aggiungi nuova" per inserirla tu.</div>`;
+    return;
+  }
+  container.innerHTML = filtered.map((d,idx)=>{
+    const realIdx = destinations.indexOf(d);
+    const initial = d.name.charAt(0).toUpperCase();
+    const thumb = d.img
+      ? `<img class="dest-thumb" src="${d.img}" alt="${d.name}" loading="lazy">`
+      : `<div class="dest-thumb-placeholder">${initial}</div>`;
+    return `
+    <div class="card dest-card" draggable="true" data-idx="${realIdx}">
+      ${thumb}
       <div class="dest-body">
         <div class="dest-top">
           <div>
@@ -682,14 +845,74 @@ function renderDestinations(){
         </div>
         <p>${d.text}</p>
         <div class="dest-links">
-          <a href="${d.photos}" target="_blank" rel="noopener">Altre foto ↗</a>
+          ${d.photos ? `<a href="${d.photos}" target="_blank" rel="noopener">Altre foto ↗</a>` : ''}
         </div>
+        <div class="dest-hint">↕ trascina su un giorno del Daily Trip per aggiungerla</div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+
+  container.querySelectorAll('.dest-card').forEach(card=>{
+    card.addEventListener('dragstart', e=>{
+      card.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', card.dataset.idx);
+      e.dataTransfer.effectAllowed = 'copy';
+    });
+    card.addEventListener('dragend', ()=> card.classList.remove('dragging'));
+  });
 }
+
+// Ricerca (filtro locale tra le destinazioni esistenti)
+document.getElementById('dest-search-input').addEventListener('input', e=>{
+  destSearchTerm = e.target.value;
+  renderDestinations();
+});
+
+// Toggle del form "aggiungi nuova destinazione"
+document.getElementById('dest-toggle-add').addEventListener('click', ()=>{
+  const form = document.getElementById('dest-add-form');
+  form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+});
+
+document.getElementById('dest-add-confirm').addEventListener('click', ()=>{
+  const nameInput = document.getElementById('dest-add-name');
+  const catInput = document.getElementById('dest-add-cat');
+  const noteInput = document.getElementById('dest-add-note');
+  const name = nameInput.value.trim();
+  if(!name) return;
+  destinations.push({
+    name,
+    tag: 'Aggiunta da voi',
+    cat: catInput.value + ',personalizzate',
+    text: noteInput.value.trim() || 'Nessuna nota aggiunta — modifica pure questa scheda quando vuoi.',
+    img: null,
+    photos: `https://www.google.com/search?q=${encodeURIComponent(name + ' Creta')}&tbm=isch`
+  });
+  nameInput.value = ''; noteInput.value = '';
+  saveAppData();
+  renderDestinations();
+});
 
 renderDestTabs();
 renderDestinations();
+
+/* ---------------- DRAG & DROP: destinazioni → Daily Trip ---------------- */
+function addDestinationToDay(dayIndex, destIndex){
+  const dest = destinations[destIndex];
+  if(!dest) return;
+  const day = itinerary[dayIndex];
+  day.items.push({time:"", text:`Visita: ${dest.name}`});
+  day.route = day.route || [];
+  if(dest.lat && dest.lon){
+    day.route.push({lat:dest.lat, lon:dest.lon, label:dest.name});
+  } else {
+    // Nessuna coordinata nota (es. destinazione aggiunta a mano): usa il nome come ricerca su Google Maps
+    day.route.push({query:`${dest.name}, Creta, Grecia`, label:dest.name});
+  }
+  saveAppData();
+  if(dayIndex === activeDay) renderDayPanels();
+  renderDayTabs();
+}
 
 /* ---------------- METEO (Open-Meteo, live) ---------------- */
 const LOCATIONS = {
@@ -774,6 +997,10 @@ renderWeather(activeLoc);
 
 /* ---------------- ITINERARIO (editabile, persistente) ---------------- */
 let itinerary = DEFAULT_ITINERARY.map(d=>({...d, items:[...d.items]}));
+let packing = {
+  MyR: DEFAULT_PACKING.MyR.map(text=>({text, checked:false})),
+  MyT: DEFAULT_PACKING.MyT.map(text=>({text, checked:false}))
+};
 let activeDay = 0;
 
 // Ambiente: dentro Claude esiste window.storage (privato per account).
@@ -795,29 +1022,53 @@ function showSyncBanner(url){
   document.body.appendChild(el);
 }
 
-async function loadItinerary(){
+function showSyncError(message){
+  const el = document.createElement('div');
+  el.style = "position:fixed; bottom:14px; left:14px; right:14px; z-index:50; background:#B5563C; color:#fff; padding:12px 16px; border-radius:10px; font-family:'JetBrains Mono',monospace; font-size:11.5px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; box-shadow:0 6px 20px rgba(0,0,0,.25);";
+  el.innerHTML = `<span>⚠️ Sincronizzazione non riuscita: ${message}</span>
+    <button style="background:none; border:none; color:#fff; opacity:.8; cursor:pointer; font-size:14px; margin-left:auto;" onclick="this.closest('div').remove()">✕</button>`;
+  document.body.appendChild(el);
+}
+
+async function loadAppData(){
   if(hasClaudeStorage){
     try{
       const res = await window.storage.get('creta-itinerary-2026');
       if(res && res.value) itinerary = JSON.parse(res.value);
     }catch(e){ /* nessun dato salvato ancora: uso i default */ }
+    try{
+      const res2 = await window.storage.get('creta-packing-2026');
+      if(res2 && res2.value) packing = JSON.parse(res2.value);
+    }catch(e){ /* nessun dato salvato ancora: uso i default */ }
+    try{
+      const res3 = await window.storage.get('creta-destinations-2026');
+      if(res3 && res3.value) destinations = JSON.parse(res3.value);
+    }catch(e){ /* nessun dato salvato ancora: uso i default */ }
   } else if(extBinId){
     try{
-      const res = await fetch(`${EXT_API}/${extBinId}`);
-      if(res.ok){
-        const data = await res.json();
-        if(data && data.itinerary) itinerary = data.itinerary;
-      }
-    }catch(e){ console.error('Caricamento condiviso non riuscito, uso la copia locale', e); }
+      const res = await fetch(`https://jsonhosting.com/get/${extBinId}`);
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if(data && data.itinerary) itinerary = data.itinerary;
+      if(data && data.packing) packing = data.packing;
+      if(data && data.destinations) destinations = data.destinations;
+    }catch(e){
+      console.error('Caricamento condiviso non riuscito, uso la copia locale', e);
+      showSyncError(`impossibile caricare i dati condivisi (${e.message}). Mostro la versione base.`);
+    }
   }
   renderDayTabs();
   renderDayPanels();
+  renderPacking();
+  renderDestinations();
 }
 
-async function saveItinerary(){
+async function saveAppData(){
   if(hasClaudeStorage){
     try{
       await window.storage.set('creta-itinerary-2026', JSON.stringify(itinerary));
+      await window.storage.set('creta-packing-2026', JSON.stringify(packing));
+      await window.storage.set('creta-destinations-2026', JSON.stringify(destinations));
     }catch(e){ console.error('Salvataggio non riuscito', e); }
     return;
   }
@@ -827,22 +1078,28 @@ async function saveItinerary(){
       const res = await fetch(EXT_API, {
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({itinerary})
+        body: JSON.stringify({itinerary, packing, destinations})
       });
+      if(!res.ok) throw new Error(`HTTP ${res.status} alla creazione`);
       const data = await res.json();
+      if(!data.id) throw new Error('risposta senza id bin');
       extBinId = data.id;
       extEditKey = data.editKey;
       const newUrl = `${window.location.origin}${window.location.pathname}?bin=${extBinId}&key=${extEditKey}`;
       window.history.replaceState({}, '', newUrl);
       showSyncBanner(newUrl);
     } else {
-      await fetch(`${EXT_API}/${extBinId}`, {
+      const res = await fetch(`${EXT_API}/${extBinId}`, {
         method:'PATCH',
         headers:{'Content-Type':'application/json','X-Edit-Key':extEditKey||''},
-        body: JSON.stringify({itinerary})
+        body: JSON.stringify({itinerary, packing, destinations})
       });
+      if(!res.ok) throw new Error(`HTTP ${res.status} all'aggiornamento`);
     }
-  }catch(e){ console.error('Salvataggio condiviso non riuscito', e); }
+  }catch(e){
+    console.error('Salvataggio condiviso non riuscito', e);
+    showSyncError(`${e.message}. La modifica resta solo sul tuo dispositivo per ora.`);
+  }
 }
 
 function renderDayTabs(){
@@ -856,6 +1113,18 @@ function renderDayTabs(){
       renderDayTabs();
       renderDayPanels();
     });
+    t.addEventListener('dragover', e=>{
+      e.preventDefault();
+      t.classList.add('drag-over');
+    });
+    t.addEventListener('dragleave', ()=> t.classList.remove('drag-over'));
+    t.addEventListener('drop', e=>{
+      e.preventDefault();
+      t.classList.remove('drag-over');
+      const destIndex = parseInt(e.dataTransfer.getData('text/plain'));
+      const dayIndex = parseInt(t.dataset.i);
+      if(!isNaN(destIndex) && !isNaN(dayIndex)) addDestinationToDay(dayIndex, destIndex);
+    });
   });
 }
 
@@ -863,10 +1132,15 @@ function sortDayItems(d){
   d.items.sort((a,b)=> (a.time||"99:99").localeCompare(b.time||"99:99"));
 }
 
+function mapPointToUrlPart(p){
+  // Ogni punto della route può avere coordinate note (lat/lon) oppure solo un nome (query testuale)
+  return (p.lat && p.lon) ? `${p.lat},${p.lon}` : encodeURIComponent(p.query || p.label || '');
+}
+
 function buildMapEmbed(route){
   if(!route || route.length < 2) return '';
-  const saddr = `${route[0].lat},${route[0].lon}`;
-  const stops = route.slice(1).map(p=>`${p.lat},${p.lon}`);
+  const saddr = mapPointToUrlPart(route[0]);
+  const stops = route.slice(1).map(mapPointToUrlPart);
   const daddr = stops.join('+to:');
   const url = `https://maps.google.com/maps?saddr=${saddr}&daddr=${daddr}&output=embed`;
   return `<div class="day-map"><iframe src="${url}" loading="lazy" allowfullscreen></iframe></div>`;
@@ -903,7 +1177,7 @@ function renderDayPanels(){
     b.addEventListener('click', ()=>{
       const j = parseInt(b.dataset.j);
       itinerary[activeDay].items.splice(j,1);
-      saveItinerary();
+      saveAppData();
       renderDayPanels();
     });
   });
@@ -917,14 +1191,83 @@ function renderDayPanels(){
     itinerary[activeDay].items.push({time:timeInput.value||"", text:v, move:moveInput.checked});
     input.value='';
     moveInput.checked=false;
-    saveItinerary();
+    saveAppData();
     renderDayPanels();
   }
   addBtn.addEventListener('click', addItem);
   input.addEventListener('keydown', e=>{ if(e.key==='Enter') addItem(); });
+
+  const panelEl = container.querySelector('.day-panel');
+  panelEl.addEventListener('dragover', e=>{ e.preventDefault(); panelEl.style.outline = '2px dashed var(--terracotta)'; });
+  panelEl.addEventListener('dragleave', ()=>{ panelEl.style.outline = 'none'; });
+  panelEl.addEventListener('drop', e=>{
+    e.preventDefault();
+    panelEl.style.outline = 'none';
+    const destIndex = parseInt(e.dataTransfer.getData('text/plain'));
+    if(!isNaN(destIndex)) addDestinationToDay(activeDay, destIndex);
+  });
 }
 
-loadItinerary();
+function renderPacking(){
+  const container = document.getElementById('packing-lists');
+  const listMeta = [
+    {key:'MyR', label:'MyR'},
+    {key:'MyT', label:'MyT'}
+  ];
+  container.innerHTML = listMeta.map(({key,label})=>{
+    const items = packing[key] || [];
+    const done = items.filter(i=>i.checked).length;
+    return `
+    <div class="card pack-card">
+      <h3>${label} <span class="pack-count">${done}/${items.length}</span></h3>
+      <ul class="pack-list" id="pack-${key}">
+        ${items.map((it,j)=>`
+          <li class="${it.checked?'checked':''}">
+            <input type="checkbox" data-list="${key}" data-j="${j}" ${it.checked?'checked':''}>
+            <span>${it.text}</span>
+            <button class="del" data-list="${key}" data-j="${j}">✕</button>
+          </li>`).join('')}
+      </ul>
+      <div class="pack-add-row">
+        <input type="text" id="new-pack-${key}" placeholder="Aggiungi un oggetto…">
+        <button data-add="${key}">Aggiungi</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      const key = cb.dataset.list, j = parseInt(cb.dataset.j);
+      packing[key][j].checked = cb.checked;
+      saveAppData();
+      renderPacking();
+    });
+  });
+  container.querySelectorAll('button.del').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const key = b.dataset.list, j = parseInt(b.dataset.j);
+      packing[key].splice(j,1);
+      saveAppData();
+      renderPacking();
+    });
+  });
+  container.querySelectorAll('button[data-add]').forEach(b=>{
+    const key = b.dataset.add;
+    const input = document.getElementById(`new-pack-${key}`);
+    function addPackItem(){
+      const v = input.value.trim();
+      if(!v) return;
+      packing[key].push({text:v, checked:false});
+      input.value = '';
+      saveAppData();
+      renderPacking();
+    }
+    b.addEventListener('click', addPackItem);
+    input.addEventListener('keydown', e=>{ if(e.key==='Enter') addPackItem(); });
+  });
+}
+
+loadAppData();
 </script>
 </div><!-- /#content -->
 

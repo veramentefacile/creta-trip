@@ -302,12 +302,17 @@
     font-size:14px;
   }
   .item-list li:last-child{border-bottom:none;}
-  .item-time{
-    flex:0 0 52px;
+  .item-time-input{
+    flex:0 0 84px;
     font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700;
-    color:var(--terracotta); padding-top:1px;
+    color:var(--terracotta); padding:3px 4px;
+    border:1px solid transparent; border-radius:6px; background:transparent;
+    cursor:pointer;
   }
-  .item-text{flex:1; line-height:1.4;}
+  .item-time-input:hover, .item-time-input:focus{
+    border-color:var(--line); background:#fff; outline:none;
+  }
+  .item-text{flex:1; line-height:1.4; padding-top:3px;}
   .item-move{
     display:inline-block; font-size:9.5px; font-family:'JetBrains Mono',monospace;
     background:var(--sea); color:#fff; padding:1px 7px; border-radius:5px; margin-right:6px;
@@ -316,6 +321,10 @@
   .item-list button.del{
     margin-left:auto; background:none; border:none; color:var(--terracotta);
     font-size:16px; cursor:pointer; line-height:1; padding:2px 6px;
+  }
+  .day-map-empty{
+    margin-top:14px; padding:16px; text-align:center; font-size:12px; opacity:.5;
+    border:1px dashed var(--line); border-radius:12px;
   }
   .add-row{display:flex; gap:8px; margin-top:12px; flex-wrap:wrap;}
   .add-row input[type="time"]{
@@ -551,7 +560,7 @@ const TRIP = {
 // ogni item: {time, text, move:true se è uno spostamento}
 const DEFAULT_ITINERARY = [
   {date:"15 ago", dow:"Sab", loc:"Kampos / Elafonissi", latKey:"kampos",
-   route:[{lat:35.3397,lon:25.1793,label:"Aeroporto Heraklio"},{lat:35.3907,lon:23.5737,label:"Kampos"}],
+   baseRoute:[{lat:35.3397,lon:25.1793,label:"Aeroporto Heraklio"},{lat:35.3907,lon:23.5737,label:"Kampos"}],
    items:[
     {time:"15:50", text:"Atterraggio a Heraklio (HER)"},
     {time:"16:00", text:"Ritiro auto a noleggio in aeroporto (Aegean Rentals)"},
@@ -560,7 +569,7 @@ const DEFAULT_ITINERARY = [
     {time:"20:30", text:"Cena in zona, sistemazione"}
   ]},
   {date:"16 ago", dow:"Dom", loc:"Kampos / Elafonissi", latKey:"kampos",
-   route:[{lat:35.3907,lon:23.5737,label:"Kampos"},{lat:35.2761,lon:23.5354,label:"Elafonissi"}],
+   baseRoute:[{lat:35.3907,lon:23.5737,label:"Kampos"},{lat:35.2761,lon:23.5354,label:"Elafonissi"}],
    items:[
     {time:"09:00", text:"Colazione"},
     {time:"09:30", text:"Verso la spiaggia rosa di Elafonissi — 15 min", move:true},
@@ -570,7 +579,7 @@ const DEFAULT_ITINERARY = [
     {time:"20:00", text:"Cena"}
   ]},
   {date:"17 ago", dow:"Lun", loc:"Kampos / Elafonissi", latKey:"kampos",
-   route:[{lat:35.3907,lon:23.5737,label:"Kampos"},{lat:35.3050,lon:23.5386,label:"Chrysoskalitissa"},{lat:35.2270,lon:23.6790,label:"Paleochora"}],
+   baseRoute:[{lat:35.3907,lon:23.5737,label:"Kampos"},{lat:35.3050,lon:23.5386,label:"Chrysoskalitissa"},{lat:35.2270,lon:23.6790,label:"Paleochora"}],
    items:[
     {time:"09:30", text:"Verso il Monastero di Chrysoskalitissa — 10 min", move:true},
     {time:"10:00", text:"Visita al monastero sulla scogliera"},
@@ -581,7 +590,7 @@ const DEFAULT_ITINERARY = [
     {time:"22:00", text:"Rientro a Kampos — circa 40 min", move:true}
   ]},
   {date:"18 ago", dow:"Mar", loc:"Trasferimento → Chora Sfakion", latKey:"kampos",
-   route:[{lat:35.3907,lon:23.5737,label:"Kampos"},{lat:35.2014,lon:24.1351,label:"Chora Sfakion"}],
+   baseRoute:[{lat:35.3907,lon:23.5737,label:"Kampos"},{lat:35.2014,lon:24.1351,label:"Chora Sfakion"}],
    items:[
     {time:"08:00", text:"Colazione"},
     {time:"09:00", text:"Check-out Lefteris Rooms (entro le 11:00)"},
@@ -592,7 +601,7 @@ const DEFAULT_ITINERARY = [
     {time:"17:00", text:"Giro del paese e del porto"}
   ]},
   {date:"19 ago", dow:"Mer", loc:"Chora Sfakion", latKey:"sfakion",
-   route:[{lat:35.2014,lon:24.1351,label:"Chora Sfakion"},{lat:35.1966,lon:24.0827,label:"Loutro / Glyka Nera"}],
+   baseRoute:[{lat:35.2014,lon:24.1351,label:"Chora Sfakion"},{lat:35.1966,lon:24.0827,label:"Loutro / Glyka Nera"}],
    items:[
     {time:"09:00", text:"Colazione"},
     {time:"10:00", text:"Barca o sentiero costiero verso Glyka Nera — ~1h30 a piedi o breve traversata in barca", move:true},
@@ -602,7 +611,7 @@ const DEFAULT_ITINERARY = [
     {time:"20:00", text:"Cena"}
   ]},
   {date:"20 ago", dow:"Gio", loc:"Chora Sfakion", latKey:"sfakion",
-   route:[{lat:35.2014,lon:24.1351,label:"Chora Sfakion"},{lat:35.1821,lon:24.2341,label:"Frangokastello"}],
+   baseRoute:[{lat:35.2014,lon:24.1351,label:"Chora Sfakion"},{lat:35.1821,lon:24.2341,label:"Frangokastello"}],
    items:[
     {time:"09:00", text:"Colazione"},
     {time:"10:00", text:"Verso Frangokastello — circa 15 min", move:true},
@@ -612,7 +621,7 @@ const DEFAULT_ITINERARY = [
     {time:"20:00", text:"Ultima cena a Sfakia"}
   ]},
   {date:"21 ago", dow:"Ven", loc:"Chora Sfakion", latKey:"sfakion",
-   route:[{lat:35.2014,lon:24.1351,label:"Chora Sfakion"},{lat:35.3397,lon:25.1793,label:"Aeroporto Heraklio"}],
+   baseRoute:[{lat:35.2014,lon:24.1351,label:"Chora Sfakion"},{lat:35.3397,lon:25.1793,label:"Aeroporto Heraklio"}],
    items:[
     {time:"08:00", text:"Colazione"},
     {time:"10:00", text:"Check-out Lefka Ori (entro le 11:00)"},
@@ -901,14 +910,16 @@ function addDestinationToDay(dayIndex, destIndex){
   const dest = destinations[destIndex];
   if(!dest) return;
   const day = itinerary[dayIndex];
-  day.items.push({time:"", text:`Visita: ${dest.name}`});
-  day.route = day.route || [];
+  // Orario di default: fine giornata, così compare in fondo ma resta comunque modificabile e riordinabile
+  const newItem = {time:"18:00", text:`Visita: ${dest.name}`, fromDrag:true};
   if(dest.lat && dest.lon){
-    day.route.push({lat:dest.lat, lon:dest.lon, label:dest.name});
+    newItem.lat = dest.lat;
+    newItem.lon = dest.lon;
   } else {
     // Nessuna coordinata nota (es. destinazione aggiunta a mano): usa il nome come ricerca su Google Maps
-    day.route.push({query:`${dest.name}, Creta, Grecia`, label:dest.name});
+    newItem.mapQuery = `${dest.name}, Creta, Grecia`;
   }
+  day.items.push(newItem);
   saveAppData();
   if(dayIndex === activeDay) renderDayPanels();
   renderDayTabs();
@@ -1107,8 +1118,18 @@ function mapPointToUrlPart(p){
   return (p.lat && p.lon) ? `${p.lat},${p.lon}` : encodeURIComponent(p.query || p.label || '');
 }
 
+// Ricostruisce sempre il percorso da zero: tragitto fisso del giorno + sole le tappe
+// attualmente presenti nella lista (se cancelli una tappa, sparisce anche dalla mappa)
+function computeDayRoute(d){
+  const base = d.baseRoute ? [...d.baseRoute] : [];
+  const dragged = d.items
+    .filter(it => (it.lat && it.lon) || it.mapQuery)
+    .map(it => it.lat && it.lon ? {lat:it.lat, lon:it.lon, label:it.text} : {query:it.mapQuery, label:it.text});
+  return base.concat(dragged);
+}
+
 function buildMapEmbed(route){
-  if(!route || route.length < 2) return '';
+  if(!route || route.length < 2) return '<div class="day-map-empty">Nessun percorso da mostrare per questo giorno.</div>';
   const saddr = mapPointToUrlPart(route[0]);
   const stops = route.slice(1).map(mapPointToUrlPart);
   const daddr = stops.join('+to:');
@@ -1127,8 +1148,8 @@ function renderDayPanels(){
       <ul class="item-list" id="items-${activeDay}">
         ${d.items.map((it,j)=>`
           <li>
-            <span class="item-time">${it.time||'—'}</span>
-            <span class="item-text">${it.move?'<span class="item-move">spostamento</span>':''}${it.text}</span>
+            <input type="time" class="item-time-input" data-j="${j}" value="${it.time||''}">
+            <span class="item-text">${it.move?'<span class="item-move">spostamento</span>':''}${it.fromDrag?'<span class="item-move" style="background:var(--sun);">destinazione</span>':''}${it.text}</span>
             <button class="del" data-j="${j}">✕</button>
           </li>`).join('')}
       </ul>
@@ -1140,7 +1161,10 @@ function renderDayPanels(){
         </label>
         <button id="add-btn">Aggiungi</button>
       </div>
-      ${buildMapEmbed(d.route)}
+      <div style="display:flex; justify-content:flex-end; margin-top:10px;">
+        <button id="refresh-map-btn" style="background:none; border:1px solid var(--line); border-radius:8px; padding:6px 14px; font-size:11.5px; font-family:'JetBrains Mono',monospace; cursor:pointer; color:var(--ink);">🔄 Aggiorna mappa</button>
+      </div>
+      <div id="map-container">${buildMapEmbed(computeDayRoute(d))}</div>
     </div>
   `;
   container.querySelectorAll('.del').forEach(b=>{
@@ -1150,6 +1174,17 @@ function renderDayPanels(){
       saveAppData();
       renderDayPanels();
     });
+  });
+  container.querySelectorAll('.item-time-input').forEach(input=>{
+    input.addEventListener('change', ()=>{
+      const j = parseInt(input.dataset.j);
+      itinerary[activeDay].items[j].time = input.value;
+      saveAppData();
+      renderDayPanels(); // riordina in base al nuovo orario e ridisegna la mappa
+    });
+  });
+  document.getElementById('refresh-map-btn').addEventListener('click', ()=>{
+    document.getElementById('map-container').innerHTML = buildMapEmbed(computeDayRoute(itinerary[activeDay]));
   });
   const addBtn = document.getElementById('add-btn');
   const input = document.getElementById('new-item');

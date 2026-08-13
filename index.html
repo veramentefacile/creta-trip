@@ -1028,11 +1028,21 @@ function showSyncError(message){
   document.body.appendChild(el);
 }
 
+// Applica solo le "items" salvate a ciascun giorno, senza mai toccare baseRoute/date/loc:
+// così un salvataggio fatto con una versione precedente della dashboard non rompe la mappa
+// quando la struttura dei dati cambia in futuro.
+function mergeSavedItinerary(savedItinerary){
+  if(!Array.isArray(savedItinerary)) return;
+  savedItinerary.forEach((savedDay, idx)=>{
+    if(itinerary[idx] && Array.isArray(savedDay.items)) itinerary[idx].items = savedDay.items;
+  });
+}
+
 async function loadAppData(){
   if(hasClaudeStorage){
     try{
       const res = await window.storage.get('creta-itinerary-2026');
-      if(res && res.value) itinerary = JSON.parse(res.value);
+      if(res && res.value) mergeSavedItinerary(JSON.parse(res.value));
     }catch(e){ /* nessun dato salvato ancora: uso i default */ }
     try{
       const res2 = await window.storage.get('creta-packing-2026');
@@ -1047,7 +1057,7 @@ async function loadAppData(){
       const res = await fetch(`${FIREBASE_URL}/trip.json`);
       if(!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      if(data && data.itinerary) itinerary = data.itinerary;
+      if(data && data.itinerary) mergeSavedItinerary(data.itinerary);
       if(data && data.packing) packing = data.packing;
       if(data && data.destinations) destinations = data.destinations;
     }catch(e){
